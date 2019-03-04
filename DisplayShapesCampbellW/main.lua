@@ -1,0 +1,5 @@
+-- Title: DisplayShapes
+-- Name: Your Name
+-- Course: ICS2O/3C
+-- This program displays shapes on the iPad of different colours and borders. 
+-- Underneath the shape is the name 
