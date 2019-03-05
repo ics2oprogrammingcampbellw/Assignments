@@ -67,7 +67,7 @@ Runtime:addEventListener("enterFrame", MoveBoat)
 
 ----------------------------------------------------------------------------------------------------------
 
-scrollSpeed = -10
+scrollSpeed4 = -10
 
 local skidoo = display.newImageRect("Images/skidoo.png", 200, 200)
 skidoo.x = 500
