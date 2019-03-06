@@ -1,5 +1,9 @@
 -- title: animating images
---
+-- Campbell Woodside
+-- This program moves three different images across the screen while doing various things.
+-- It also displays my name. 
+
+---------------------------------------------------------------------------------------------------------------
 -- set background
 local background = display.newImageRect("Images/ocean2.jpg", 2048, 1536)
 
