@@ -7,8 +7,10 @@
 -----------------------------------------------------------------------------------------------------------------------------
 -- hide the status bar
 display.setStatusBar(display.HiddenStatusBar)
+
 -- sets the background colour
 display.setDefault("background", 124/255, 249/255, 199/255)
+
 -----------------------------------------------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------
@@ -20,6 +22,20 @@ local randomNumber1
 local randomNumber2
 local userAnswer
 local correctanswer
+
+
+-- LOCAL FUNCTIONS
+local totalSeconds = 10
+local secondsLeft = 10
+local clockText 
+local countDownTimer
+
+local lives = 4
+local heart1
+local heart2
+local heart3
+local heart4
+
 -----------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------------------------------------------
@@ -29,12 +45,28 @@ local function AskQuestion()
     randomNumber2 = math.random(0, 10)
     correctAnswer = randomNumber1 + randomNumber2
     -- create question in text object
-    questionObject.text = randomNumber1 .. " + " .. " = "
+    if (randomOperator == 1) then
+
+    	-- calculate the correct answer
+    	correctAnswer = randomNumber1 + randomNumber2
+    questionObject.text = randomNumber1 .. " + " .. randomNumber2 .." = "
+
+    -- otherwise if the random operator is 2, do subtraction
+    elseif (randomOperator == 2) then
+    	-- calculate the correct answer
+    	correctAnswer = randomNumber1 - randomNumber2
+
+    	-- create question in text object
+    	questionObject.text = randomNumber1 .. "-" .. randomNumber2 .. "="
+    end
 end
+
+
 local function HideCorrect()
     correctObject.isVisible = false
-    AskQuestion()
+    
 end
+
 local function NumericFieldListener( event )
     -- User begins editing "numericField"
     if ( event.phase == "began" ) then
@@ -50,84 +82,9 @@ local function NumericFieldListener( event )
         end
     end
 end
--------------------------------------------------------------------------------------------------------------------------------
--- OBJECT CREATION
-----------------------------------------------------------------------------------------------------------------------------
-
--- displays a question and set the colour
-questionObject = display.newText( "9+9", display.contentHeight/2, 1, 50 )
-questionObject:setTextColor(155/255, 42/255, 198/255)
--- create the correct text object and make it invisible
-correctObject = display.newText( "Correct!", display.contentWidth/2, display.contentHeight*2/3, nil, 50)
-correctObject:setTextColor(155/255, 42/255, 198/255)
-correctObject.isVisible = false
--- Create numeric field
-numericField = native.newTextField( display.contentWidth/2, display.contentHeight/2, 150, 80 )
-numericField.inputType = "number"
--- add the event listener for the numeric field
-numericField:addEventListener( "userInput", NumericFieldListener)
------------------------------------------------------------------------------------------------------------------------------- 
--- FUNCTION CALLS
-----------------------------------------------------------------------------------------------------------------------------
--- call the function to ask the question
-AskQuestion()
- 
--- LOCAL FUNCTIONS
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local totalSeconds = 10
-local secondsLeft = 10
-local clockText
-local countDownTimer
-
-local lives = 4
-local heart1
-local heart2
-local heart3
-local heart4
 
 --*** ADD LOCAL VARIABLE FOR: INCORRECT OBJECT, POINTS OBJECTS, POINTS
 
@@ -152,17 +109,17 @@ local function UpdateTime()
 		--*** IF THERE AND NO LIVES LEFT, PLAY A LOSE SOUND, SHOW A LOSE IMAGE
 		-- AND CANCEL THE TIMER REMOVE THE THIRD HEART BY MAKING IT INVISIBLE
 		if (lives == 4) then
+			heart4.isVisible = true
+		elseif (lives == 3) then
 			heart4.isVisible = false
-		if (lives == 3) then
-			heart3.isVisible = false
-		if (lives == 2) then
+		elseif (lives == 2) then
 			heart2.isVisible = false
 		elseif (lives == 1) then
-				heart1.isVisible = false
+			heart1.isVisible = false
 		end
 
 		--*** CALL THE FUNCTION TO ASK A NEW QUESTION
-
+		
 	end
 end
 
@@ -176,6 +133,21 @@ end
 -- OBJECT CREATION
 -----------------------------------------------------------------------------------------------------------------
 
+-- displays a question and set the colour
+questionObject = display.newText( "", display.contentWidth/2, display.contentHeight/2, nil, 50 )
+questionObject:setTextColor(125/255, 60/255, 140/255)
+
+-- create the correct text object and make it invisible
+correctObject = display.newText( "Correct!", display.contentWidth/2, display.contentHeight*2/3, nil, 50)
+correctObject:setTextColor(155/255, 42/255, 198/255)
+correctObject.isVisible = false
+
+-- Create numeric field
+numericField = native.newTextField( display.contentWidth/2, display.contentHeight/2, 150, 80 )
+numericField.inputType = "number"
+
+-- add the event listener for the numeric field
+numericField:addEventListener( "userInput", NumericFieldListener)
 
 -- create the lives to display on the screen
 heart1 = display.newImageRect("Images/heart.png", 100, 100)
@@ -185,3 +157,53 @@ heart1.y = display.contentHeight * 1 / 7
 heart2 = display.newImageRect("Images/heart.png", 100, 100)
 heart2.x = display.contentWidth * 6 / 8
 heart2.y = display.contentHeight * 1 / 7
+
+------------------------------------------------------------------------------------------------------------------------------ 
+-- FUNCTION CALLS
+----------------------------------------------------------------------------------------------------------------------------
+-- call the function to ask the question
+AskQuestion()
+
+StartTimer()
+f
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
