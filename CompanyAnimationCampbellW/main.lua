@@ -70,7 +70,7 @@ end
 Runtime:addEventListener("enterFrame", StopShip)
 
 local function MoveStars()
-	stars:rotate(-30)
+	stars:rotate(-50)
 end
 
 Runtime:addEventListener("enterFrame", MoveStars)
