@@ -49,7 +49,7 @@ local gameOver
 
 local function AskQuestion()
     -- generate  2 random numbers between a max. and a min. number
-    randomOperator = math.random(1,4)
+    randomOperator = 2 --math.random(1,4)
     randomNumber1 = math.random(0, 10)
     randomNumber2 = math.random(0, 10)
     -- create question in text object
@@ -63,16 +63,28 @@ local function AskQuestion()
 
     elseif (randomOperator == 2) then
     	-- calculate the correct answer
+
+        if (randomNumber1 < randomNumber2) then
+            tempNumber1 = randomNumber1 
+            randomNumber1 = randomNumber2
+            randomNumber2 = tempNumber1
+        end
+
+
     	correctAnswer = randomNumber1 - randomNumber2
     	-- create question in text object
     	questionObject.text = randomNumber1 .. "-" .. randomNumber2 .. "=" 
         scoreObject.text = score
 
      elseif (randomOperator == 3) then
+
+        randomNumber3 = math.random(1,4)
+
+
      	-- calculate the correct answer
-     	correctAnswer = randomNumber1 / randomNumber2
+     	correctAnswer = randomNumber2*randomNumber3 / randomNumber2
     	-- create question in text object
-    	questionObject.text = randomNumber1 .. "/" .. randomNumber2 .. "=" 
+    	questionObject.text = randomNumber2*randomNumber3 .. "/" .. randomNumber2 .. "=" 
         scoreObject.text = score
 
     elseif (randomOperator == 4) then
@@ -99,6 +111,34 @@ local function HideIncorrect()
     incorrectObject.isVisible = false
 end
 
+local function ResetTimer()
+    secondsLeft = 10
+end
+
+local function LoseLife()
+    ResetTimer()
+    lives = lives - 1
+
+    if (lives == 3) then
+        heart4.isVisible = false
+
+    elseif (lives == 2) then
+        heart3.isVisible = false
+
+    elseif (lives == 1) then
+        heart2.isVisible = false
+
+    elseif (lives == 0) then
+
+        heart1.isVisible = false
+        gameOver.isVisible = true
+        numericField.isVisible = false
+        scoreObject.isVisible = false
+        scoreText.isVisible = false
+    end
+end
+
+
 
 local function NumericFieldListener( event )
 
@@ -119,6 +159,7 @@ local function NumericFieldListener( event )
                 timer.performWithDelay(2000, HideCorrect)
                 event.target.text = ""
                 score = score + 1
+                ResetTimer()
 
 
 
@@ -126,7 +167,8 @@ local function NumericFieldListener( event )
                 incorrectObject.isVisible = true
                 timer.performWithDelay(2000, HideIncorrect)    
                 event.target.text = ""
-                lives = lives - 1
+                LoseLife()
+
                 
         end
     end
@@ -138,6 +180,8 @@ end
 -------------------------------------------------------------------------------------------------------------
 
 
+
+
 local function UpdateTime()
 
 	secondsLeft = secondsLeft - 1
@@ -145,25 +189,7 @@ local function UpdateTime()
 
 
 	if (secondsLeft == 0 ) then
-		secondsLeft = totalSeconds
-		lives = lives - 1
-
-		if (lives == 4) then
-			heart4.isVisible = false
-
-		elseif (lives == 3) then
-			heart3.isVisible = false
-
-		elseif (lives == 2) then
-			heart2.isVisible = false
-
-		elseif (lives == 1) then
-
-			heart1.isVisible = false
-			gameOver.isVisible = true
-			numericField.isVisible = false
-			scoreObject.isVisible = false
-		end
+        LoseLife()		
 	end
 end
 
@@ -228,8 +254,7 @@ incorrectObject.isVisible = false
 
 scoreObject =  display.newText("", display.contentWidth/2, display.contentHeight*3/10, nil, 50)
 scoreObject:setTextColor(100/255, 142/255, 148/255)
-display.newText("Score =", display.contentWidth*3.9/10, display.contentHeight*3/10, nil, 50 )
-
+scoreText = display.newText("Score =", display.contentWidth*3.9/10, display.contentHeight*3/10, nil, 50 )
 
 ------------------------------------------------------------------------------------------------------------------------------ 
 -- FUNCTION CALLS
