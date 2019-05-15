@@ -99,4 +99,5 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
+composer.gotoScene( "splash_screen" )
 return scene
