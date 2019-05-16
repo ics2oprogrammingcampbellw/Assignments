@@ -32,7 +32,7 @@ local scene = composer.newScene( sceneName )
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
-local bkg_image
+local bkg_image 
 local playButton
 local creditsButton
 local instructionsButton
@@ -55,7 +55,7 @@ end
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
 local function InstuctionsTransition( )
-    composer.gotoScene( "Instructions Screen", {effect = "slideUp", time = 1000})
+    composer.gotoScene( "instructions_screen", {effect = "slideUp", time = 1000})
 end    
 
 -----------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg_image = display.newImage("Images/main_menu.png")
+    bkg_image = display.newImage("Images/MainMenu.png")
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -98,8 +98,8 @@ function scene:create( event )
             y = display.contentHeight*7/8,
 
             -- Insert the images here
-            defaultFile = "Images/Start Button Unpressed.png",
-            overFile = "Images/Start Button Pressed.png",
+            defaultFile = "Images/PlayButtonUnpressed.png",
+            overFile = "Images/PlayButtonUnpressed.png",
 
             -- When the button is released, call the Level1 screen transition function
             onRelease = Level1ScreenTransition          
@@ -115,8 +115,8 @@ function scene:create( event )
             y = display.contentHeight*7/8,
 
             -- Insert the images here
-            defaultFile = "Images/Credits Button Unpressed.png",
-            overFile = "Images/Credits Button Pressed.png",
+            defaultFile = "Images/CreditsButtonUnpressed.png",
+            overFile = "Images/CreditsButtonPressed.png",
 
             -- When the button is released, call the Credits transition function
             onRelease = CreditsTransition
@@ -130,8 +130,8 @@ function scene:create( event )
             y = display.contentHeight*7/8,
 
             -- Insert the images here
-            defaultFile = "Images/Instructions Button Unpressed.png",
-            overFile = "Images/Instructions Button Pressed.png",
+            defaultFile = "Images/InstuctionsButtonUnpressed.png",
+            overFile = "Images/InstuctionsButtonPressed.png",
 
             -- When the button is released, call the Credits transition function
             onRelease = InstuctionsTransition
